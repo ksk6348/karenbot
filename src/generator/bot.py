@@ -6,11 +6,13 @@ from common.my_mecab import MyMeCab
 from generator.markov import word_choice
 import warnings
 import numpy as np
-
+import os
 
 class Bot:
-    W2V_MODEL_PATH = '../../res/w2v_model.mecab.model'
-    MARKOV_DIC_PATH = '../../res/markov.mecab.json'
+    base = os.path.dirname(os.path.abspath(__file__))
+    ROOT_PATH = os.path.normpath(os.path.join(base, '../../'))
+    W2V_MODEL_PATH = ROOT_PATH + '/res/w2v_model.mecab.model'
+    MARKOV_DIC_PATH = ROOT_PATH + '/res/markov.mecab.json'
 
     def __init__(self):
         self.w2v_model = word2vec.Word2Vec.load(self.W2V_MODEL_PATH)
@@ -59,6 +61,9 @@ class Bot:
                 w3 = ""
             ret.append(w3)
             if w3 == '。' or w3 == '？' or w3 == '':
+                break
+            if len(ret) > 30:
+                ret.append('。')
                 break
             w1, w2 = w2, w3
         return ''.join(ret)
