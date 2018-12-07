@@ -1,9 +1,11 @@
 from gensim.models import word2vec
-from src.common.my_mecab import MyMeCab
-from src.generator.markov import word_choice
 import json, random
 import sys
+sys.path.append('..')
+from common.my_mecab import MyMeCab
+from generator.markov import word_choice
 import warnings
+import numpy as np
 
 
 class Bot:
@@ -20,7 +22,7 @@ class Bot:
         for m in morphemes:
             if m.pos in ['名詞', '動詞', '形容詞']:
                 try:
-                    similar_words = self.w2v_model.most_similar(positive=[m.infinitve])
+                    self.w2v_model.most_similar(positive=[m.infinitve])
                     return m.infinitve
                 except:
                     continue
@@ -30,7 +32,7 @@ class Bot:
         try:
             similar_words = self.w2v_model.most_similar(positive=[word])
             return random.choice([w[0] for w in similar_words])
-        except:
+        except KeyError:
             return '@'
 
     def make_sentence(self, head):
@@ -39,14 +41,20 @@ class Bot:
         ret = []
         if head != '@':
             ret.append(head)
-        top = self.markov_dic[head]
+        try:
+            top = self.markov_dic[head]
+        except KeyError:
+            top = self.markov_dic['@']
         w1 = word_choice(top)
         w2 = word_choice(top[w1])
         ret.append(w1)
         ret.append(w2)
         while True:
             if w1 in self.markov_dic and w2 in self.markov_dic[w1]:
-                w3 = word_choice(self.markov_dic[w1][w2])
+                items = self.markov_dic[w1][w2].items()
+                words, counts = zip(*items)
+                weight = np.array(counts) / np.sum(counts)
+                w3 = np.random.choice(words, p=weight)
             else:
                 w3 = ""
             ret.append(w3)

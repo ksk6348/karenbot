@@ -2,6 +2,7 @@ from janome.tokenizer import Tokenizer
 from src.common.my_mecab import MyMeCab
 import emoji
 import os, re, json, random
+import numpy as np
 
 MECAB_DICT_FILE = '../../res/markov.mecab.json'
 POST = '../../res/post.txt'

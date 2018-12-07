@@ -1,6 +1,8 @@
 src/crawler/param.yml
 res/*.txt
 src/preprocessing/.ipynb_checkpoints
+.idea/
+.vscode/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
