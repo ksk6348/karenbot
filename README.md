@@ -6,13 +6,13 @@
 pip install -r requirements.txt
 ```
 
-### CUIアプリ
+## CUIアプリ
 
 ```
 python3 src/generator/bot.py
 ```
 
-### Webアプリ
+## Webアプリ
 
 ```
 python3 run.py
