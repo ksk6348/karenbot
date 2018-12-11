@@ -17,12 +17,12 @@ class Morpheme:
         self.pos = feature[0]
         self.pos_data = feature[1]
         if feature[6] == '*' or self.surface in emoji.UNICODE_EMOJI: # 絵文字処理
-            self.infinitve = morphemes[0]
+            self.infinitive = morphemes[0]
         else:
-            self.infinitve = feature[6]
+            self.infinitive = feature[6]
 
     def __str__(self):
-        return '{} {} {} {}'.format(self.surface, self.infinitve, self.pos, self.pos_data)
+        return '{} {} {} {}'.format(self.surface, self.infinitive, self.pos, self.pos_data)
 
 class MeCabTest(unittest.TestCase):
     def test_mecab(self):
