@@ -60,7 +60,7 @@ prometheus-client==0.5.0
 prompt-toolkit==2.0.7
 protobuf==3.6.1
 ptyprocess==0.6.0
-Pygments==2.3.0
+Pygments==2.7.4
 pyknp==0.4.1
 pylint==2.2.2
 python-dateutil==2.7.5
